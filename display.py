@@ -4,70 +4,60 @@ from papirus import PapirusTextPos
 from papirus import Papirus
 import time
 import requests
+#checkval.py used to pull beacon chain validator data. Contains private key so not in this repo
+import checkval
 from datetime import datetime
 from pycoingecko import CoinGeckoAPI
 cg = CoinGeckoAPI()
 
-myBTC= 2.5
-myETH= 3
-
 text=PapirusTextPos(False, rotation = 0)
 
-
+#date
 text.AddText("1", 0,0 , Id="date", size =35)
-text.AddText("EUR", 55,20 , Id="eurlabel", size =16)
-text.AddText("|",  110,20 , Id="pipe1", size =16)
-text.AddText("USD", 130,20 , Id="usdlabel", size =16)
 
-text.AddText("BTC:", 0,35 , Id="btc", size =18)
-text.AddText("2", 55,35 ,Id="btceur", size =18)
-text.AddText("|", 110,35 , Id="pipe2", size =18)
-text.AddText("2", 130,35 ,Id="btcusd", size =18)
+#Eth header
+text.AddText("ETH:", 0,35 , Id="eth", size =28)
+text.AddText("moon", 0,60 , Id="ethcng", size =25)
 
-text.AddText("ETH:", 0,55 , Id="eth", size =18)
-text.AddText("3", 55,55 , Id="etheur", size =18)
-text.AddText("|", 110,55 , Id="pipe3", size =18)
-text.AddText("3", 130,55 , Id="ethusd", size =18)
+#ETH Gas price
+text.AddText("g", 0,85 , Id="gas", size =30)
 
-text.AddText("5",130,80 , Id="wallet", size =17)
-text.AddText("My Wallet:",0,80 , Id="mymoney", size =17)
+#validator
+text.AddText("val", 0,125 , Id="val", size =28)
+text.AddText("valvalue", 0,148 , Id="valvalue", size=28)
 
+def getETH():
+    #get ETH gas price and 24 hr change from CoinGecko
+    prices = cg.get_price(ids='ethereum', vs_currencies='usd', include_24hr_change='true')
 
-def getBTC():
-
-    prices = cg.get_price(ids='bitcoin,ethereum', vs_currencies='usd,eur')
-
-    btc_eur= (prices["bitcoin"]['eur']) 
-    btc_usd= (prices["bitcoin"]['usd'])
-    eth_eur= (prices["ethereum"]['eur'])
     eth_usd= (prices["ethereum"]['usd'])
+    eth_change= (prices["ethereum"]['usd_24h_change'])
+
+    #get my validator stats from the beacon chain api
+    #wrote checkval.py to pull the info and kept it in another file due to containing personal API key
+    ethval = checkval.check_val()
 
 
-    print (btc_eur, btc_usd, eth_eur,eth_usd)
+    #get current ETH gas price
+    url = "https://www.ethgasstationapi.com/api/standard"
+    gas = requests.request("GET", url).json()
 
-    myWallet = (myBTC*btc_eur)+(myETH*eth_eur)
-    myWallet=int(myWallet)
-    eth_eur=int(eth_eur)
-    eth_usd=int(eth_usd)
-    
+    #get current date-time
     now = datetime.now()
-    current_time = now.strftime("%d.%m. %H:%M")
+    current_time = now.strftime("%d.%m   %H:%M")
  
-    
+    #update screen with formatting
     text.UpdateText("date", current_time)
     
-    text.UpdateText("btceur",str(btc_eur))
-    text.UpdateText("btcusd",str(btc_usd))
-
-    text.UpdateText("etheur",str(eth_eur))
-    text.UpdateText("ethusd",str(eth_usd))
+    text.UpdateText("eth","ETH:$"+str(eth_usd))
+    text.UpdateText("ethcng", (u"\u25B2" if eth_change>0 else u"\u25BC")+format(eth_change,'.2f')+"% 24hr")
     
-    text.UpdateText("wallet",str(myWallet))
+    text.UpdateText("gas","Gas:"+str(gas))
     
-
-
+    text.UpdateText("val", "Val1:"+format(ethval,'.6f'))
+    text.UpdateText("valvalue","$"+format(ethval*eth_usd,'.2f'))
     text.WriteAll()
 
-    return 
+    return
 
-data=getBTC()
+data=getETH()
