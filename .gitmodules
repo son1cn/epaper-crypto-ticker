@@ -1,0 +1,6 @@
+[submodule "PaPiRus"]
+	path = PaPiRus
+	url = https://github.com/PiSupply/PaPiRus
+[submodule "BTCDisplay"]
+	path = BTCDisplay
+	url = https://github.com/schech1/BTCDisplay
