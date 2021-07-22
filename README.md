@@ -6,6 +6,8 @@ I had the idea to create a crypto ticker so I can monitor how the market is doin
 
 Start with a fresh [Raspbian Buster Lite image](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-05-28/2021-05-07-raspios-buster-armhf-lite.zip) (or whatever version is available now) with [SSH enabled](https://phoenixnap.com/kb/enable-ssh-raspberry-pi), set up a static IP (easiest from the DHCP server side) to make it easier to remote in later at a known address.
 
+Pull this repo somewhere easy, I used the home directory.
+
 Using the install instructions linked on the store page [PapiRus on GitHub](https://github.com/PiSupply/PaPiRus) to install the drivers on the pi.
 After following the automated install, **ensuring you select Python 2 and 3 when prompted**
 >#### Auto Installation
