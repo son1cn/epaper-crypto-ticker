@@ -29,7 +29,7 @@ I found another GitHub project [schech1/BTCDisplay](https://github.com/schech1/B
 
 I needed to keep part of the python code separate since it contains a private API key, so change display.py to fits what you want to see and your particular display.
 
-You need to make display.py executable
+You need to make display.py executable (needs to be done anytime a git pull is performed on this repo)
 ```bash
 chmod +x display.py
 ```
