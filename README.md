@@ -25,6 +25,13 @@ pip3 install pycoingecko
 
 I found another GitHub project [schech1/BTCDisplay](https://github.com/schech1/BTCDisplay) that is doing most of what I am after, so I started with their code.
 
+I needed to keep part of the python code separate since it contains a private API key, so change display.py to fits what you want to see and your particular display.
+
+You need to make display.py executable
+```bash
+chmod +x display.py
+```
+
 install the script to run every minute via cron
 ```bash
 crontab -e
@@ -33,3 +40,5 @@ add the following to the bottom, with the path to your display.py
 ```bash
 * * * * * /home/pi/epaper-crypto-ticker/display.py
 ```
+
+### Enjoy!
