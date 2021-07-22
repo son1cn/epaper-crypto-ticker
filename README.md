@@ -14,13 +14,13 @@ After following the automated install, **ensuring you select Python 2 and 3 when
 ># Run this line and PaPiRus will be setup and installed
 >curl -sSL https://pisupp.ly/papiruscode | sudo bash
 >```
-[install pip](https://pip.pypa.io/en/stable/installing/)
+#### Install python3 pip
 ```bash
-curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
+sudo apt-get install python3-pip
 ```
-install [coingecko API](https://pypi.org/project/pycoingecko/)
+#### Install [coingecko API](https://pypi.org/project/pycoingecko/)
 ```bash
-pip install pycoingecko
+pip3 install pycoingecko
 ```
 
 I found another GitHub project [schech1/BTCDisplay](https://github.com/schech1/BTCDisplay) that is doing most of what I am after, so I started with their code.
