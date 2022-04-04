@@ -39,13 +39,13 @@ def getETH():
 
 
     #get current ETH gas price
-    url = "https://ethgas.watch/api/gas"
-    gas = requests.request("GET", url).json()['normal']['gwei']
+    url = "https://ethergas.io/json"
+    gas = requests.request("GET", url).json()['standard']
+    print(gas)
 
     #get current date-time
     now = datetime.now()
-    current_time = now.strftime("%d.%m   %H:%M")
- 
+    current_time = now.strftime("%d.%m %H:%M")
     #update screen with formatting
     text.UpdateText("date", current_time)
     
