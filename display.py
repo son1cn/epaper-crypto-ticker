@@ -5,7 +5,8 @@ from papirus import Papirus
 import time
 import requests
 #checkval.py used to pull beacon chain validator data. Contains private key so not in this repo
-from checkval import *
+import checkval
+from checkval import etherscan_api
 from datetime import datetime
 from pycoingecko import CoinGeckoAPI
 cg = CoinGeckoAPI()
@@ -37,12 +38,12 @@ def getETH():
     #wrote checkval.py to pull the info and kept it in another file due to containing personal API key
     ethval = checkval.check_val()
 
-
     #get current ETH gas price
     #etherscan_api is stored in checkval.py since it is private
     url = "https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey="+etherscan_api
     gas = requests.request("GET", url).json()['result']['ProposeGasPrice']
-    print(gas)
+    #testing new API endpoint
+    #print(gas)
 
     #get current date-time
     now = datetime.now()
